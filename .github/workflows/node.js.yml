@@ -23,9 +23,17 @@ jobs:
       with:
        node-version: 20
        cache: 'pnpm'
-          # Install pnpm
+      # Ensure npm is up-to-date (optional but useful)
+    - name: Update npm
+      run: npm install -g npm
+
+# Install pnpm globally
     - name: Install pnpm
       run: npm install -g pnpm
+
+    # Verify pnpm installation
+    - name: Check pnpm version
+      run: pnpm --version
     - name: Set DATABASE_URL
       run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
     - run: pnpm install
