@@ -26,6 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
+          # Install pnpm
+    - name: Install pnpm
+      run: npm install -g pnpm
     - name: Set DATABASE_URL
       run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
     - run: pnpm install
