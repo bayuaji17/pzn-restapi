@@ -13,27 +13,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [20]
 
     steps:
     - uses: actions/checkout@v4
       # Set Node.js version
-    - name: Use Node.js 20
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-       node-version: 20
-       cache: 'pnpm'
-      # Ensure npm is up-to-date (optional but useful)
-    - name: Update npm
-      run: npm install -g npm
-
-# Install pnpm globally
-    - name: Install pnpm
-      run: npm install -g pnpm
-
-    # Verify pnpm installation
-    - name: Check pnpm version
-      run: pnpm --version
+        node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
     - name: Set DATABASE_URL
       run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
     - run: pnpm install
