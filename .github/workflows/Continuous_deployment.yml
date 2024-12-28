@@ -1,0 +1,29 @@
+name: Deploy Express JS
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: 22
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            # 1. Move to app directory
+            cd /home/ubuntu/pzn-restapi/
+            # 2. pull latest changes
+            git pull origin main
+            # 3. Install only production dependencies
+            pnpm install --frozen-lockfile --prod
+            # 4. Apply database migrations
+            pnpx prisma migrate deploy
+            pnpx prisma generate
+            # 5. Build the application          pnpm run build
+            # 6. Restart the application with zero downtime
+            pm2 restart all
+            # 7. Show logs for debugging (Optional)
+            pm2 logs --lines 100

@@ -1,4 +1,4 @@
-#FIX CI
+
 name: Node.js CI
 
 on:
