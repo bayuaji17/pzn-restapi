@@ -26,5 +26,5 @@ jobs:
             pnpm run build
             # 6. Restart the application with zero downtime
             pm2 restart all
-            # 7. Show logs for debugging (Optional)
-            pm2 logs --lines 100
+            # # 7. Show logs for debugging (Optional)
+            # pm2 logs --lines 100
