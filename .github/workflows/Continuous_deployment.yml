@@ -22,7 +22,8 @@ jobs:
             # 4. Apply database migrations
             pnpx prisma migrate deploy
             pnpx prisma generate
-            # 5. Build the application          pnpm run build
+            # 5. Build the application
+            pnpm run build
             # 6. Restart the application with zero downtime
             pm2 restart all
             # 7. Show logs for debugging (Optional)
