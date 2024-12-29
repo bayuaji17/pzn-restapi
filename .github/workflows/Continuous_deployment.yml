@@ -18,7 +18,7 @@ jobs:
             # 2. pull latest changes
             git pull origin main
             # 3. Install only production dependencies
-            pnpm install --frozen-lockfile --prod
+            pnpm install --prod
             # 4. Apply database migrations
             pnpx prisma migrate deploy
             pnpx prisma generate
